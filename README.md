@@ -54,7 +54,9 @@ In the above step a config.py was created in your project working directory.  Th
 
 # Additional Resources
 
-* https://cpldcpu.wordpress.com/2014/11/30/understanding-the-apa102-superled/
+* [Github Adafruit_DotStar_Pi](https://github.com/adafruit/Adafruit_DotStar_Pi)
+* [Github Adafruit_DotStar](https://github.com/adafruit/Adafruit_DotStar)
+* [Understanding the APA102 "Superled"](https://cpldcpu.wordpress.com/2014/11/30/understanding-the-apa102-superled/)
 
 # Open Source Credits
 
