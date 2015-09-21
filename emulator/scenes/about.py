@@ -50,7 +50,6 @@ class AboutScene(Scene):
         widget = TextLabelWidget(config.get("WINDOW_CAPTION"), 18, config.get("BRAND_TITLE"))
         widget.layout.margin.set(0, 0, 0, 5)
         rows_panel.set(widget, 0)
-        print(text_split)
 
         for i, line in enumerate(text_split):
             widget = TextLabelWidget(line, 12, (255, 255, 255))
