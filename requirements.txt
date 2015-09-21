@@ -1,0 +1,4 @@
+pygame>=1.9.2a0
+blinker>=1.4
+ProxyTypes>=0.9
+pillow>=2.9.0
