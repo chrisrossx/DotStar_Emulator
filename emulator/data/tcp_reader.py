@@ -90,7 +90,7 @@ class TCPReader(threading.Thread):
                         rlist, wlist, elist = select.select([conn, ], [conn, ], [conn, ], 0.1)
                         if conn in rlist:
                             try:
-                                data = conn.recv(1)
+                                data = conn.recv(1024)
                             except:
                                 data = None
 
