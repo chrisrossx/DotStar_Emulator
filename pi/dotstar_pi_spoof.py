@@ -103,7 +103,6 @@ class Adafruit_DotStar(object):
 
         # Allocate buffer for pixels
         if self.numLEDs:
-            print("Setting Pixels")
             self.pixels = bytearray(self.numLEDs * 4)
 
         # -------------------------------------
