@@ -42,7 +42,11 @@ class StripData(object):
         self._signal_startrecv = blinker.signal("stripdata.startrecv")
         self._signal_updated = blinker.signal("stripdata.updated")
 
-    def spi_in(self, data):
+        self.header_bytes_found = 0
+        self.buffer_count = 0
+        self.buffer = bytearray((0xFF, 0xFF, 0xFF, 0xFF))
+
+    def spi_in(self, b):
         """
         Called from the data_Reader thread, will keep track of what pixel is being set and update it. next call
         will update the next pixel.  Also checks for start frame bytearray((0x00, 0x00, 0x00, 0x00)) and will
@@ -50,16 +54,26 @@ class StripData(object):
 
         No thread safety, but should not be a concern about any race conditions.
 
-        :param data: bytearray of length 4
+        :param b: single byte
         :return: None
         """
-        if data[0] == 0x00 and data[1] == 0x00 and data[2] == 0x00 and data[3] == 0x00:
+
+        # If in byte does not equal zero, see if last four were zero and trigger new byte read.
+        if b != 0x00 and self.buffer[0] == 0x00 and self.buffer[1] == 0x00 and \
+                self.buffer[2] == 0x00 and self.buffer[3] == 0x00:
+
+            self.buffer_count = 0
             self.spi_index = 0
             self.packet_length = 4
             self._signal_startrecv.send(self)
             self.updated = datetime.datetime.now()
-        else:
-            c, b, g, r = data[0], data[1], data[2], data[3]
+
+        self.buffer.pop(0)
+        self.buffer.append(b)
+        self.buffer_count += 1
+        if self.buffer_count == 4:
+            self.buffer_count = 0
+            c, b, g, r = self.buffer[0], self.buffer[1], self.buffer[2], self.buffer[3]
             self.set(self.spi_index, c, b, g, r)
             self.spi_index += 1
             self.packet_length += 4

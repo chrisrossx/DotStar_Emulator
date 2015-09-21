@@ -90,7 +90,7 @@ class TCPReader(threading.Thread):
                         rlist, wlist, elist = select.select([conn, ], [conn, ], [conn, ], 0.1)
                         if conn in rlist:
                             try:
-                                data = conn.recv(1024)
+                                data = conn.recv(1)
                             except:
                                 data = None
 
@@ -98,14 +98,7 @@ class TCPReader(threading.Thread):
                                 break
 
                             for i in data:
-                                buff.append(ord(i))
-                                # TODO this may not be the best method, it may be better to read in the stream until
-                                # 4x00 bytes have been found, and then start counting from 4 after the first 1bit has
-                                # been received, as observed by
-                                # https://cpldcpu.wordpress.com/2014/11/30/understanding-the-apa102-superled/
-                                if len(buff) >= 4:
-                                    strip_data.spi_in(buff)
-                                    buff = bytearray()
+                                strip_data.spi_in(ord(i))
 
                         elif conn in elist:
                             break
