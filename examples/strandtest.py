@@ -17,7 +17,7 @@ import time
 try:
     from dotstar import Adafruit_DotStar
 except ImportError:
-    from DotStar_Emulator.pi import Adafruit_DotStar
+    from DotStar_Emulator import Adafruit_DotStar
 # End of DotStar_Emulator Changed Code
 # ##################################################
 
