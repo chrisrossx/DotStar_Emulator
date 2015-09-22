@@ -44,6 +44,23 @@ Now you can start the Emulator application using:
 
 ##### AdaFruit_DotStar_Pi, Raspberry Pi Library
 
+Simply replace the import of the `Adafruit_DotStar` library for the DotStar_Emulator `Adafruit_DotStar` library.
+ 
+Example:
+
+    # from dotstar import Adafruit_DotStar
+    from DotStar_Emulator import Adafruit_DotStar
+
+Or:
+
+    # Attempt to import the real library, but if it doesn't exists then 
+    # import the spoofed emulator version.
+    try:
+        from dotstar import Adafruit_DotStar
+    except ImportError:
+        from DotStar_Emulator import Adafruit_DotStar
+
+
 ##### AdaFruit_DotStar, Adruino Library
 
 Future Release
