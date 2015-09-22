@@ -46,37 +46,32 @@ class StripData(object):
         self.buffer_count = 0
         self.buffer = bytearray((0xFF, 0xFF, 0xFF, 0xFF))
 
-    def spi_in(self, b):
+    def spi_recv(self, msg):
         """
-        Called from the data_Reader thread, will keep track of what pixel is being set and update it. next call
-        will update the next pixel.  Also checks for start frame bytearray((0x00, 0x00, 0x00, 0x00)) and will
-        restart index as a new stream of data.
+        Currently no checking of msg integrity or first four bytes being 0x00 is done. Msg is assumed
+        to be correct. Future versions may provide a config that can be set that will perform
+        some checks on the message, and search for the first data byte.
 
-        No thread safety, but should not be a concern about any race conditions.
-
-        :param b: single byte
+        :param msg: bytearray
         :return: None
         """
 
-        # If in byte does not equal zero, see if last four were zero and trigger new byte read.
-        if b != 0x00 and self.buffer[0] == 0x00 and self.buffer[1] == 0x00 and \
-                self.buffer[2] == 0x00 and self.buffer[3] == 0x00:
+        msg_length = len(msg)
+        data_length = len(self.data)
 
-            self.buffer_count = 0
-            self.spi_index = 0
-            self.packet_length = 4
-            self._signal_startrecv.send(self)
-            self.updated = datetime.datetime.now()
+        # Check if message is longer than pixel count
+        if (msg_length - 4) / 4 >= data_length:
+            end = data_length
+        else:
+            end = (msg_length - 4)
 
-        self.buffer.pop(0)
-        self.buffer.append(b)
-        self.buffer_count += 1
-        if self.buffer_count == 4:
-            self.buffer_count = 0
-            c, b, g, r = self.buffer[0], self.buffer[1], self.buffer[2], self.buffer[3]
-            self.set(self.spi_index, c, b, g, r)
-            self.spi_index += 1
-            self.packet_length += 4
+        # Splice in the data from the message
+        self.data[0:end] = msg[4:end+4]
+
+        self._signal_startrecv.send(self)
+        self.updated = datetime.datetime.now()
+        self.packet_length = msg_length
+        self._dirty = True
 
     def update(self, elapsed):
         """
@@ -87,6 +82,7 @@ class StripData(object):
         :param elapsed: milliseconds
         :return: None
         """
+
         if self._dirty:
             self._signal_updated.send(self)
             self._dirty = False

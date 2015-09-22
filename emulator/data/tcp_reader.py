@@ -1,10 +1,8 @@
 from __future__ import print_function
 import threading
-import time
-import socket
 import logging
+from multiprocessing.connection import Listener
 import select
-
 
 from DotStar_Emulator.emulator import config, strip_data
 
@@ -28,9 +26,7 @@ class TCPReader(threading.Thread):
 
         self.host = config.get("HOST")
         self.port = config.get("PORT")
-        self.backlog = 5
-        self.size = 1024
-        self.server = None
+        self.listener = None
 
         # Thread Loop
         self.running = True
@@ -40,32 +36,23 @@ class TCPReader(threading.Thread):
         self.startup = threading.Event()
         self.startup_success = False
 
-    def open_socket(self):
+    def open_listener(self):
         """
-        Bind to the specified socket.  Set an event and report to the main thread if it was successful
+        Open Listener to the specified socket.  Set an event and report to the main thread if it was successful
 
         :return: None
         """
+
         try:
-            self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.server.setblocking(0)
-            self.server.bind((self.host, self.port))
-            self.server.listen(self.backlog)
-
-            # Set events and return
-            log.info("listening on '%s', %s", self.host, self.port)
+            self.listener = Listener((self.host, self.port))
             self.startup_success = True
-            self.startup.set()
-            return True
-        except socket.error:
-            if self.server:
-                self.server.close()
-
-            # Set events and return
-            log.exception("Could not bind socket '%s', %s", self.host, self.port)
+            log.info("listening on '%s', %s", self.host, self.port)
+        except:
             self.startup_success = False
-            self.startup.set()
-            return False
+            log.exception("Could not bind socket '%s', %s", self.host, self.port)
+
+        self.startup.set()
+        return self.startup_success
 
     def run(self):
         """
@@ -74,43 +61,31 @@ class TCPReader(threading.Thread):
         :return: None
         """
         log.info("Starting thread")
-        if self.open_socket():
+        if self.open_listener():
+
+            # This feels so dirty, but we need to make sure the thread isn't always blocking so we
+            # can safely shutdown the thread.  Given that the Listener address is always an IP
+            # it should be safe. Should be, famous last words of course...
+            conn = self.listener._listener._socket
 
             while self.running:
+                r_list, w_list, e_list = select.select([conn, ], [conn, ], [conn, ], 0.01)
 
-                try:
-                    conn, addr = self.server.accept()
-                except socket.error:
-                    conn, addr = None, None
+                if conn in r_list:
+                    connection = None
+                    try:
+                        connection = self.listener.accept()
+                        log.info("Connection opened by %s", self.listener.last_accepted)
 
-                if conn:
-                    log.info("Connection opened by '%s'", addr[0])
-                    buff = bytearray()
-                    while self.running:
-                        rlist, wlist, elist = select.select([conn, ], [conn, ], [conn, ], 0.1)
-                        if conn in rlist:
-                            try:
-                                data = conn.recv(1024)
-                            except:
-                                data = None
+                        while self.running:
+                            if connection.poll():
+                                msg = connection.recv()
+                                strip_data.spi_recv(msg)
+                    except IOError:
+                        if connection:
+                            connection.close()
+                        log.info("Connection closed %s", self.listener.last_accepted)
 
-                            if not data:
-                                break
-
-                            for i in data:
-                                strip_data.spi_in(ord(i))
-
-                        elif conn in elist:
-                            break
-
-                    conn.shutdown(socket.SHUT_RDWR)
-                    conn.close()
-                    log.info("Connection closed '%s'", addr[0])
-
-                # while waiting for a connection, don't burn through the CPU
-                time.sleep(0.01)
-
-            self.server.close()
         log.info("Exiting thread")
 
     def stop(self):

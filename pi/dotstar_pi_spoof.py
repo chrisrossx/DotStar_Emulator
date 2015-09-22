@@ -1,5 +1,5 @@
 import threading
-import socket
+from multiprocessing.connection import Client
 import Queue
 
 __all__ = ["Adafruit_DotStar", ]
@@ -13,22 +13,33 @@ PORT = 6555
 
 class DataThread(threading.Thread):
     def __init__(self):
+        """
+        Thread that manages multiproccessing Client to send data to the emulator app
+
+        :return:
+        """
+
         super(DataThread, self).__init__()
         self.host = HOST
         self.port = PORT
-        self.socket = None
 
         self.running = True
 
         self.queue = Queue.Queue()
         self.daemon = True
 
-    def open_socket(self):
+        self.connection = None
+
+    def open_connection(self):
+        """
+        Open a connection to the specified port.
+
+        :return: None
+        """
         try:
-            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.socket.connect((self.host, self.port))
+            self.connection = Client((self.host, self.port))
         except:
-            self.socket = None
+            self.connection = None
 
     def run(self):
         while self.running:
@@ -38,15 +49,15 @@ class DataThread(threading.Thread):
                 data = None
 
             if data:
-                if not self.socket:
-                    self.open_socket()
+                if not self.connection:
+                    self.open_connection()
 
-                if self.socket:
+                if self.connection:
                     try:
-                        self.socket.send(data)
+                        self.connection.send(data)
                     except:
-                        self.socket.close()
-                        self.socket = None
+                        self.connection.close()
+                        self.connection = None
                 else:
                     # Don't let the queue buildup when a connection is not available. Just empty the
                     # queue
@@ -177,6 +188,27 @@ class Adafruit_DotStar(object):
             self.pixels[index + 3] = r
 
     def _raw_write(self, data):
+        """
+        // Private method.  Writes pixel data without brightness scaling.
+        """
+        out_buffer = bytearray()
+        out_buffer += bytearray((0x00, 0x00, 0x00, 0x00))
+        out_buffer += data
+
+        if self.numLEDs:
+            footerLen = (self.numLEDs + 15) / 16
+        else:
+            footerLen = ((len(data) / 4) + 15) / 16
+        fBuf = bytearray()
+        for i in range(footerLen):
+            # This is different than AdaFruit library, which uses zero's in the xfer[2] spi_ioc_transfer struct.
+            out_buffer.append(0xFF)
+
+        self._data_thread.queue.put_nowait(out_buffer)
+        # print(out_buffer)
+
+
+    def X_raw_write(self, data):
         """
         // Private method.  Writes pixel data without brightness scaling.
         """
