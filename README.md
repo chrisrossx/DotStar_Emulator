@@ -6,15 +6,7 @@ It works in two parts, the emulator application that runs and displays a virtual
 
 ### Screenshots
 
-[<img src="https://raw.githubusercontent.com/chrisrossx/DotStar_Emulator/dev-main/screenshot_001.JPG" alt="Running on Windows" width=250 height=250 />](screenshot_001.JPG)   [<img src="https://raw.githubusercontent.com/chrisrossx/DotStar_Emulator/dev-main/screenshot_002.JPG" alt="Running on Windows" width=250 height=250 />](https://raw.githubusercontent.com/chrisrossx/DotStar_Emulator/dev-main/screenshot_001.JPG)
-
-![Screen Shot 1](screenshot_001.JPG)
-
-![Screen Shot 1](<img src="screenshot_001.JPG?raw=true" alt="Running on Windows" width=250 height=250 />)
-
-<img src="screenshot_001.JPG?raw=true" alt="Running on Windows" width=250 height=250 />
-
-https://raw.githubusercontent.com/chrisrossx/DotStar_Emulator/master/screenshot_001.JPG
+<img src="screenshot_001.JPG?raw=true" alt="Running on Windows" width=250 height=250 />  <img src="screenshot_002.JPG?raw=true" alt="Running on Windows" width=250 height=250 />
 
 # Installation
 
