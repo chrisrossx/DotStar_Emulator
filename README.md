@@ -10,6 +10,8 @@ It works in two parts, the emulator application that runs and displays a virtual
 
 # Installation
 
+DotStar_Emulator has been tested in both Python3.4 and Python 2.7
+
     pip install DotStar_Emulator
 
 # Getting Started
