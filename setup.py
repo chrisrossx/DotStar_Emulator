@@ -12,7 +12,7 @@ with open(path.join(here, 'DotStar_Emulator', 'emulator', 'media', 'about.txt'))
 setup(
     name="DotStar_Emulator",
     version='0.0.dev1',
-    # url='',
+    url='https://github.com/chrisrossx/DotStar_Emulator',
     description='DotStar_Emulator is a Adafruit_DotStar LED strip emulator to speed up development of controller software.',
     long_description=long_description,
     author='Christopher Ross',
