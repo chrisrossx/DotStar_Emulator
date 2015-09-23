@@ -12,6 +12,8 @@ It works in two parts, the emulator application that runs and displays a virtual
 
 ![Screen Shot 1](<img src="screenshot_001.JPG?raw=true" alt="Running on Windows" width=250 height=250 />)
 
+<img src="screenshot_001.JPG?raw=true" alt="Running on Windows" width=250 height=250 />
+
 https://raw.githubusercontent.com/chrisrossx/DotStar_Emulator/master/screenshot_001.JPG
 
 # Installation
