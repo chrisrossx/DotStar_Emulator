@@ -1,21 +1,31 @@
 from setuptools import setup
+from os import path
+
+
+here = path.abspath(path.dirname(__file__))
+
+# Get the long description from the relevant file
+with open(path.join(here, 'DotStar_Emulator', 'emulator', 'media', 'about.txt')) as f:
+    long_description = f.read()
+
 
 setup(
     name="DotStar_Emulator",
-    version='0.1',
+    version='0.0.dev1',
     # url='',
-    description='DotStar_Emulator is a Adafruit_DotStar LED strip emulator to speed up development of controller software ',
+    description='DotStar_Emulator is a Adafruit_DotStar LED strip emulator to speed up development of controller software.',
+    long_description=long_description,
     author='Christopher Ross',
     author_email='chris.rossx@gmail.com',
-    # packages=["fbone"],
-    # include_package_data=True,
-    # zip_safe=False,
+    packages=["DotStar_Emulator", ],
     install_requires=[
         "pygame>=1.9.2a0",
         "blinker>=1.4",
         "ProxyTypes>=0.9",
         "pillow>=2.9.0",
     ],
+    include_package_data = True,
+    license='MIT',
     classifiers=[
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: MIT License",

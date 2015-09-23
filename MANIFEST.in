@@ -1,0 +1,16 @@
+# http://docs.python.org/distutils/sourcedist.html#manifest-template
+# http://docs.python.org/distutils/sourcedist.html#specifying-the-files-to-distribute
+
+include LICENSE.txt
+include README.md
+include *.JPG
+
+# Including
+# Python source files, test/*.py will be automatically included.
+
+recursive-include DotStar_Emulator *.py
+recursive-include DotStar_Emulator/emulator/media *.* *
+
+
+# Excluding
+recursive-exclude DotStar_Emulator *.pyc
