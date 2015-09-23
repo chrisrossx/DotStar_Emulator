@@ -23,7 +23,7 @@ setup(
         "blinker>=1.4",
         "pillow>=2.9.0",
     ],
-    include_package_data = True,
+    include_package_data=True,
     license='MIT',
     classifiers=[
         "Development Status :: 4 - Beta",
