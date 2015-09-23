@@ -8,7 +8,9 @@ It works in two parts, the emulator application that runs and displays a virtual
 
 [<img src="https://raw.githubusercontent.com/chrisrossx/DotStar_Emulator/dev-main/screenshot_001.JPG" alt="Running on Windows" width=250 height=250 />](screenshot_001.JPG)   [<img src="https://raw.githubusercontent.com/chrisrossx/DotStar_Emulator/dev-main/screenshot_002.JPG" alt="Running on Windows" width=250 height=250 />](https://raw.githubusercontent.com/chrisrossx/DotStar_Emulator/dev-main/screenshot_001.JPG)
 
-![screenshot_001.JPG](screenshot_001.JPG)
+![Screen Shot 1](screenshot_001.JPG)
+
+![Screen Shot 1](screenshot_001.JPG =250x250)
 
 https://raw.githubusercontent.com/chrisrossx/DotStar_Emulator/master/screenshot_001.JPG
 
