@@ -237,7 +237,8 @@ class EmulatorApp(object):
             self.rate_counter.stop()
             # re-raise
             exc_info = sys.exc_info()
-            raise exc_info[0], exc_info[1], exc_info[2]
+            # raise exc_info[0], exc_info[1], exc_info[2]
+            raise exc_info[0](exc_info[1]).with_traceback(exc_info[2])
 
         # Stop and Join threads
         self.data_reader.stop()

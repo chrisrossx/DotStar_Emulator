@@ -1,6 +1,9 @@
 import threading
 from multiprocessing.connection import Client
-import Queue
+try:
+    import Queue as queue
+except ImportError:
+    import queue
 
 __all__ = ["Adafruit_DotStar", ]
 
@@ -25,7 +28,7 @@ class DataThread(threading.Thread):
 
         self.running = True
 
-        self.queue = Queue.Queue()
+        self.queue = queue.Queue()
         self.daemon = True
 
         self.connection = None
