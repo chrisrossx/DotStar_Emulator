@@ -1,5 +1,4 @@
 import os
-import textwrap
 
 import blinker
 import pygame
@@ -45,7 +44,7 @@ class AboutScene(Scene):
         with open(filename, 'r') as f:
             text = f.read()
 
-        text_split = textwrap.fill(text, 68, replace_whitespace=False).split("\n")
+        text_split = text.split("\n")
 
         widget = TextLabelWidget(config.get("WINDOW_CAPTION"), 18, config.get("BRAND_TITLE"))
         widget.layout.margin.set(0, 0, 0, 5)
