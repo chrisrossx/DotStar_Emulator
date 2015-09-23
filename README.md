@@ -10,8 +10,7 @@ It works in two parts, the emulator application that runs and displays a virtual
 
 # Installation
 
-1.  Download from github
-2.  `pip install -r requirements.txt`
+    pip install DotStar_Emulator
 
 # Getting Started
 
