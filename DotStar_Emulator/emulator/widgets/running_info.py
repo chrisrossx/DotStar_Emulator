@@ -1,7 +1,8 @@
 import blinker
 from pygame.math import Vector2
 
-from DotStar_Emulator.emulator import config, strip_data, mapping_data
+from DotStar_Emulator.emulator import config
+from DotStar_Emulator.emulator import globals
 from DotStar_Emulator.emulator.gui import TwoColumns, SizedRows, TextLabelWidget
 from .color_value import ColorValueWidget
 
@@ -38,7 +39,7 @@ class RunningInfo(TwoColumns):
         i += 1
         left.set(self.lbl_text("Grid size:"), i)
         grid_size = Vector2(config.get("GRID_SIZE"))
-        pixel_count = mapping_data.pixel_count
+        pixel_count = globals.mapping_data.pixel_count
         self.grid_size_txt = self.val_text("({:.0f}, {:.0f}), {:.0f}".format(grid_size.x, grid_size.y, pixel_count))
         right.set(self.grid_size_txt, i)
 
@@ -85,9 +86,9 @@ class RunningInfo(TwoColumns):
         :return: None
         """
         try:
-            self.packet_updated_txt.text = strip_data.updated.strftime("%H:%M:%S.%f")
+            self.packet_updated_txt.text = globals.strip_data.updated.strftime("%H:%M:%S.%f")
 
-            packet_length = "{} bytes".format(strip_data.packet_length)
+            packet_length = "{} bytes".format(globals.strip_data.packet_length)
             self.packet_length_txt.text = packet_length
         except:
             pass
@@ -96,7 +97,7 @@ class RunningInfo(TwoColumns):
 
             try:
                 index = int(self.led_strip_index_txt[i].text)
-                c, b, g, r = strip_data.get(index)
+                c, b, g, r = globals.strip_data.get(index)
                 self.led_value_txt[i].text = "({}, {}, {})".format(r, g, b)
                 self.led_color[i].color = (r, g, b, 0)
             except ValueError:
@@ -180,8 +181,8 @@ class RunningInfo(TwoColumns):
             self.led_strip_index_txt[i].text = self.led_strip_index_txt[i - 1].text
             self.led_color[i].color = self.led_color[i - 1].color
 
-        index = mapping_data.data[x][y]
-        c, b, g, r = strip_data.get(index)
+        index = globals.mapping_data.data[x][y]
+        c, b, g, r = globals.strip_data.get(index)
 
         self.led_grid_position_txt[0].text = "({}, {})".format(x, y)
         self.led_strip_index_txt[0].text = "{}".format(index)

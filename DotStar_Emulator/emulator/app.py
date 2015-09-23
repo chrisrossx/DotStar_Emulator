@@ -13,7 +13,7 @@ from . import config
 from .utils import vector2_to_int
 from .scenes.running import RunningScene
 from .scenes.about import AboutScene
-from .globals import current_app, strip_data, mapping_data
+from . import globals
 from .data import StripData, MappingData, TCPReader
 from .rate_counter import RateCounter
 from .utils import MEDIA_PATH
@@ -38,7 +38,7 @@ class EmulatorApp(object):
         """
 
         # Set reference to self as current_app
-        current_app.__subject__ = self
+        globals.current_app = self
 
         # Configure
         found_user_config = config.read_configuration()
@@ -79,8 +79,8 @@ class EmulatorApp(object):
 
         # set references to data models
         # Mapping needs to be first, so strip_data can determine number of pixels needed
-        mapping_data.__subject__ = MappingData()
-        strip_data.__subject__ = StripData()
+        globals.mapping_data = MappingData()
+        globals.strip_data = StripData()
 
         # Stored fonts
         self.fonts = {}
@@ -219,7 +219,7 @@ class EmulatorApp(object):
                 # Update things that care
                 if self.scene:
                     self.scene.update(elapsed)
-                strip_data.update(elapsed)
+                globals.strip_data.update(elapsed)
 
                 # Time to Render the Screen!
                 self.screen.fill((0, 0, 0))

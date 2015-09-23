@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from DotStar_Emulator.emulator import current_app
+from DotStar_Emulator.emulator import globals
 from DotStar_Emulator.emulator.entity import Entity
 from DotStar_Emulator.emulator import config
 
@@ -17,7 +17,7 @@ class RunningFPS(Entity):
         super(RunningFPS, self).__init__()
         self.rect = rect
 
-        self.font = current_app.get_font(13)
+        self.font = globals.current_app.get_font(13)
         self.text = None
         self.text_pos = None
         self.update_rate = config.get("FPS_UPDATE_RATE")
@@ -33,7 +33,7 @@ class RunningFPS(Entity):
 
         self.elapsed += elapsed
         if self.elapsed > self.update_rate:
-            self.text, self.text_pos = self.font.render("{:.0f}".format(current_app.clock.get_fps()), (255, 255, 255))
+            self.text, self.text_pos = self.font.render("{:.0f}".format(globals.current_app.clock.get_fps()), (255, 255, 255))
             self.text_pos.centery = self.rect.centery
             self.text_pos.left = self.rect.left
             self.elapsed = 0

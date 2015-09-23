@@ -1,7 +1,7 @@
 import blinker
 import pygame
 
-from DotStar_Emulator.emulator import current_app, config
+from DotStar_Emulator.emulator import globals, config
 from DotStar_Emulator.emulator.scene import Scene
 from DotStar_Emulator.emulator.gui import panels
 from DotStar_Emulator.emulator.gui import TextLabelWidget, ButtonWidget
@@ -169,7 +169,7 @@ class RunningScene(Scene):
         :return: `str` with the correct button text based on the state of the app.fps_limit
         """
 
-        return "[F] FPS {}".format(current_app.fps_limit if current_app.fps_limit <= 60 else "...")
+        return "[F] FPS {}".format(globals.current_app.fps_limit if globals.current_app.fps_limit <= 60 else "...")
 
     def on_fps(self, sender):
         """
@@ -179,11 +179,11 @@ class RunningScene(Scene):
         :return: None
         """
 
-        if current_app.fps_limit == 10:
+        if globals.current_app.fps_limit == 10:
             blinker.signal("app.fps").send(None, fps=2000)
-        elif current_app.fps_limit == 2000:
+        elif globals.current_app.fps_limit == 2000:
             blinker.signal("app.fps").send(None, fps=60)
-        elif current_app.fps_limit == 60:
+        elif globals.current_app.fps_limit == 60:
             blinker.signal("app.fps").send(None, fps=30)
         else:
             blinker.signal("app.fps").send(None, fps=10)

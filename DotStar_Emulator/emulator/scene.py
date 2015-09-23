@@ -1,5 +1,5 @@
 from pygame.math import Vector2
-from .globals import current_app
+from . import globals
 
 from .gui import FILLX, FILLY
 
@@ -73,5 +73,5 @@ class Scene(object):
         """
 
         # The root widget, should fill the screen surface
-        size = Vector2(current_app.window_size)
+        size = Vector2(globals.current_app.window_size)
         self.panel.fit(size, Vector2(0, 0), Vector2(0, 0), FILLX | FILLY)

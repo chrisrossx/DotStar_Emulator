@@ -1,6 +1,6 @@
 import pygame
 
-from DotStar_Emulator.emulator import current_app
+from DotStar_Emulator.emulator import globals
 from .widget import Widget
 from .flags import *
 
@@ -59,7 +59,7 @@ class TextLabelWidget(Widget):
 
         self.surface.fill((0, 0, 0, 0))
 
-        font = current_app.get_font(self.size)
+        font = globals.current_app.get_font(self.size)
 
         text, text_pos = font.render(self._text, self.color)
         if self.flags & CENTERX:

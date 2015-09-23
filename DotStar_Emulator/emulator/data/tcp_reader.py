@@ -4,7 +4,7 @@ import logging
 from multiprocessing.connection import Listener
 import select
 
-from DotStar_Emulator.emulator import config, strip_data
+from DotStar_Emulator.emulator import config, globals
 
 log = logging.getLogger("data")
 
@@ -80,7 +80,7 @@ class TCPReader(threading.Thread):
                         while self.running:
                             if connection.poll():
                                 msg = connection.recv()
-                                strip_data.spi_recv(msg)
+                                globals.strip_data.spi_recv(msg)
                     except IOError:
                         if connection:
                             connection.close()

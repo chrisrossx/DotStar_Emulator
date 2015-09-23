@@ -1,5 +1,5 @@
 from DotStar_Emulator.emulator.gui import widget
-from DotStar_Emulator.emulator import current_app, config
+from DotStar_Emulator.emulator import globals, config
 
 
 class LogoWidget(widget.Widget):
@@ -19,7 +19,7 @@ class LogoWidget(widget.Widget):
     def on_render(self):
         self.surface.fill(config.get("BRAND_BOX_BG"))
 
-        font = current_app.get_font(22)
+        font = globals.current_app.get_font(22)
 
         c = config.get("BRAND_TITLE")
         text, text_pos = font.render(config.get("WINDOW_CAPTION"), c)

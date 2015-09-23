@@ -148,10 +148,6 @@ class FillApp(App):
             print(index)
             self.set(index, 0xFF, b, g, r)
 
-        # for x in range(int(self.grid_size.x)):
-        #     for y in range(int(self.grid_size.y)):
-        #         i = self.mapping_data.get(x, y)
-
     def on_loop(self):
         fill = self.args.fill
         if fill.startswith("(") and fill.endswith(")"):

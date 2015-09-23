@@ -1,7 +1,7 @@
 import pygame
 import blinker
 
-from DotStar_Emulator.emulator import current_app
+from DotStar_Emulator.emulator import globals
 from .widget import Widget
 
 __all__ = ["ButtonWidget", ]
@@ -112,7 +112,7 @@ class ButtonWidget(Widget):
             e = (rect.right, rect.bottom-i)
             pygame.draw.line(self.surface, c, s, e)
 
-        font = current_app.get_font(10)
+        font = globals.current_app.get_font(10)
 
         c = (255, 255, 255)
         text, text_pos = font.render(self._text, c)

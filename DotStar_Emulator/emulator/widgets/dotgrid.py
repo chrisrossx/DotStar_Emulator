@@ -5,7 +5,7 @@ from pygame import Rect
 from pygame.math import Vector2
 import blinker
 
-from DotStar_Emulator.emulator import current_app, config, strip_data, mapping_data
+from DotStar_Emulator.emulator import config, globals
 from DotStar_Emulator.emulator.gui.widget import Widget
 from DotStar_Emulator.emulator.utils import vector2_to_floor, vector2_to_int
 
@@ -259,15 +259,15 @@ class DotGridWidget(Widget):
 
         # adjust font size for pixel index rendering based on size of the pixel
         if self.led_size.x >= 30 and self.led_size.y >= 30:
-            font = current_app.get_font(18)
+            font = globals.current_app.get_font(18)
         else:
-            font = current_app.get_font(8)
+            font = globals.current_app.get_font(8)
 
         for y in range(int(self.grid_size.y)):
             for x in range(int(self.grid_size.x)):
-                index = mapping_data.get(x, y)
+                index = globals.mapping_data.get(x, y)
                 if index is not None:
-                    c, b, g, r = strip_data.get(index)
+                    c, b, g, r = globals.strip_data.get(index)
                     color = (r, g, b)
                 else:
                     color = bg_color

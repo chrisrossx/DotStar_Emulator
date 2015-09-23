@@ -4,7 +4,9 @@ import datetime
 from pygame.math import Vector2
 import blinker
 
-from DotStar_Emulator.emulator import config, mapping_data
+from DotStar_Emulator.emulator import config
+from DotStar_Emulator.emulator import globals
+
 
 
 app_log = logging.getLogger("app")
@@ -24,7 +26,7 @@ class StripData(object):
         self.grid_size = Vector2(config.get("GRID_SIZE"))
 
         # self.pixel_count = int(self.grid_size.x * self.grid_size.y)
-        self.pixel_count = mapping_data.pixel_count
+        self.pixel_count = globals.mapping_data.pixel_count
 
         # setup initial pixel data
         size = self.pixel_count * 4

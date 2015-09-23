@@ -11,7 +11,7 @@ with open(path.join(here, 'DotStar_Emulator', 'emulator', 'media', 'about.txt'))
 
 setup(
     name="DotStar_Emulator",
-    version='0.0.dev1',
+    version='0.0.dev2',
     url='https://github.com/chrisrossx/DotStar_Emulator',
     description='DotStar_Emulator is a Adafruit_DotStar LED strip emulator to speed up development of controller software.',
     long_description=long_description,
@@ -21,7 +21,6 @@ setup(
     install_requires=[
         "pygame>=1.9.2a0",
         "blinker>=1.4",
-        "ProxyTypes>=0.9",
         "pillow>=2.9.0",
     ],
     include_package_data = True,
