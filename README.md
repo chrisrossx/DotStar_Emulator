@@ -10,7 +10,7 @@ It works in two parts, the emulator application that runs and displays a virtual
 
 ![Screen Shot 1](screenshot_001.JPG)
 
-![Screen Shot 1](screenshot_001.JPG =250x250)
+![Screen Shot 1](<img src="screenshot_001.JPG" alt="Running on Windows" width=250 height=250 />)
 
 https://raw.githubusercontent.com/chrisrossx/DotStar_Emulator/master/screenshot_001.JPG
 
