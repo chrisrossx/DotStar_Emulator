@@ -89,7 +89,7 @@ class App(object):
         else:
             footerLen = ((len(self.data) / 4) + 15) / 16
         fBuf = bytearray()
-        for i in range(footerLen):
+        for i in range(int(footerLen)):
             # This is different than AdaFruit library, which uses zero's in the xfer[2] spi_ioc_transfer struct.
             out_buffer.append(0xFF)
 
