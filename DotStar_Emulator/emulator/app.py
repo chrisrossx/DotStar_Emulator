@@ -4,10 +4,12 @@ import logging.config
 import os
 
 import pygame
-import pygame.freetype
+# import pygame.freetype
+import pygame.font
 from pygame.math import Vector2
 from pygame import constants
 import blinker
+from six import reraise
 
 from . import config
 from .utils import vector2_to_int
@@ -142,7 +144,8 @@ class EmulatorApp(object):
         key = "{}".format(size)
 
         if key not in self.fonts:
-            font = pygame.freetype.Font(name, size)
+            font = pygame.font.Font(name, size)
+            # font = pygame.freetype.Font(name, size)
             self.fonts[key] = font
         else:
             font = self.fonts[key]
@@ -237,8 +240,7 @@ class EmulatorApp(object):
             self.rate_counter.stop()
             # re-raise
             exc_info = sys.exc_info()
-            # raise exc_info[0], exc_info[1], exc_info[2]
-            raise exc_info[0](exc_info[1]).with_traceback(exc_info[2])
+            reraise(exc_info[0], exc_info[1], exc_info[2])
 
         # Stop and Join threads
         self.data_reader.stop()
