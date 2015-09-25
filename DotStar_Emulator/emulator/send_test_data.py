@@ -99,8 +99,8 @@ class App(object):
     def on_loop(self):
         raise NotImplementedError
 
-    @staticmethod
-    def rand_color():
+    # @staticmethod
+    def rand_color(self):
         r = random.randint(0, 255)
         g = random.randint(0, 255)
         b = random.randint(0, 255)
@@ -116,13 +116,11 @@ class RandomBlendApp(App):
         r = self.rand_color()
         g = self.rand_color()
         b = self.rand_color()
-
         for x in range(int(self.grid_size.x)):
             for y in range(int(self.grid_size.y)):
-
-                c1 = blend_color(a, r, (x / self.grid_size.x))
-                c2 = blend_color(g, b, (x / self.grid_size.x))
-                c = blend_color(c1, c2, (y / self.grid_size.y))
+                c1 = blend_color(a, r, (x / float(self.grid_size.x)))
+                c2 = blend_color(g, b, (x / float(self.grid_size.x)))
+                c = blend_color(c1, c2, (y / float(self.grid_size.y)))
                 i = self.mapping_data.get(x, y)
 
                 self.set(i, 0xFF, c.b, c.g, c.r)
