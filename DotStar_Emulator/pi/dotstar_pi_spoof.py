@@ -208,31 +208,6 @@ class Adafruit_DotStar(object):
             out_buffer.append(0xFF)
 
         self._data_thread.queue.put_nowait(out_buffer)
-        # print(out_buffer)
-
-
-    def X_raw_write(self, data):
-        """
-        // Private method.  Writes pixel data without brightness scaling.
-        """
-
-        self._data_thread.queue.put_nowait(bytearray((0x00, 0x00, 0x00, 0x00)))
-        self._data_thread.queue.put_nowait(data)
-
-        # self._data_thread.queue.put_nowait(bytearray((0xFF, 0xFF, 0xFF, 0xFF)))
-        # if(self->numLEDs) xfer[2].len = (self->numLEDs + 15) / 16;
-        # else              xfer[2].len = ((len / 4) + 15) / 16;
-
-        if self.numLEDs:
-            footerLen = (self.numLEDs + 15) / 16
-        else:
-            footerLen = ((len(data) / 4) + 15) / 16
-        fBuf = bytearray()
-        for i in range(footerLen):
-            # This is different than AdaFruit library, which uses zero's in the xfer[2] spi_ioc_transfer struct.
-            fBuf.append(0xFF)
-        self._data_thread.queue.put_nowait(fBuf)
-        # print(len(data), len(fBuf))
 
     def show(self, *args):
         """
