@@ -70,6 +70,10 @@ Future Release
 
 In the above step a config.py was created in your project working directory.  This file is commented with some helpful information for configuring your project.  the config.py file will automatically be loaded if its in your current working directory. 
 
+##### Changing the HOST and PORT of the spoofed library
+
+set environment varbialbs `DOTSTAR_HOST` and `DOTSTAR_PORT` to change the Adafruit_DotStar spoofer library or the test data program included in the emulator.
+
 # Installation
 
 An example of the Adafruit strandtest.py file is included to demonstrate how easy it is to get up and running.  Start an emulator instance with a 8x8 grid, and then run strandtest.py and see the standard strandtest file run on the emualtor.
