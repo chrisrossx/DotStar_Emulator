@@ -1,5 +1,5 @@
 from __future__ import print_function
-import socket
+from multiprocessing.connection import Client
 import random
 import os
 import time
@@ -27,7 +27,7 @@ class App(object):
 
         # data does not include start and end bytes
         self.data = bytearray(size)
-        self.socket = None
+        self.connection = None
 
         print("Data Type:", self.data_type)
 
@@ -71,20 +71,30 @@ class App(object):
             except KeyboardInterrupt:
                 pass
 
+            if self.connection:
+                self.connection.close()
+
     def send(self):
 
-        if not self.socket:
-            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.socket.setsockopt(socket.SOL_TCP, socket.TCP_NODELAY, 1)
-            self.socket.connect((config.get("HOST"), config.get("PORT")))
+        if not self.connection:
+            self.connection = Client((config.get("HOST"), config.get("PORT")))
 
         # Start
-        self.socket.send(bytearray((0x00, 0x00, 0x00, 0x00)))
+        out_buffer = bytearray()
+        out_buffer += bytearray((0x00, 0x00, 0x00, 0x00))
+        out_buffer += self.data
 
-        self.socket.send(self.data)
+        if self.pixel_count:
+            footerLen = (self.pixel_count + 15) / 16
+        else:
+            footerLen = ((len(self.data) / 4) + 15) / 16
+        fBuf = bytearray()
+        for i in range(footerLen):
+            # This is different than AdaFruit library, which uses zero's in the xfer[2] spi_ioc_transfer struct.
+            out_buffer.append(0xFF)
 
         # End Frame
-        self.socket.send(bytearray((0xFF, 0xFF, 0xFF, 0xFF)))
+        self.connection.send(out_buffer)
 
     def on_loop(self):
         raise NotImplementedError
