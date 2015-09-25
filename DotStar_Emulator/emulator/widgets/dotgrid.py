@@ -2,9 +2,9 @@ import logging
 
 import pygame
 from pygame import Rect
-from pygame.math import Vector2
 import blinker
 
+from DotStar_Emulator.emulator.vector2 import Vector2
 from DotStar_Emulator.emulator import config, globals
 from DotStar_Emulator.emulator.gui.widget import Widget
 from DotStar_Emulator.emulator.utils import vector2_to_floor, vector2_to_int

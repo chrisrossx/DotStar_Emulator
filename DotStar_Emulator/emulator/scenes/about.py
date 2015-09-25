@@ -2,8 +2,8 @@ import os
 
 import blinker
 import pygame
-from pygame.math import Vector2
 
+from DotStar_Emulator.emulator.vector2 import Vector2
 from DotStar_Emulator.emulator import config
 from DotStar_Emulator.emulator.scene import Scene
 from DotStar_Emulator.emulator.gui import panels

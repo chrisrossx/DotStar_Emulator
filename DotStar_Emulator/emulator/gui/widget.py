@@ -1,9 +1,9 @@
 import random
 
 import pygame
-from pygame.math import Vector2
 from pygame import Rect
 
+from DotStar_Emulator.emulator.vector2 import Vector2
 from .flags import *
 
 __all__ = ["Widget", ]

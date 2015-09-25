@@ -4,13 +4,12 @@ import logging.config
 import os
 
 import pygame
-# import pygame.freetype
 import pygame.font
-from pygame.math import Vector2
 from pygame import constants
 import blinker
 from six import reraise
 
+from .vector2 import Vector2
 from . import config
 from .utils import vector2_to_int
 from .scenes.running import RunningScene

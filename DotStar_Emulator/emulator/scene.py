@@ -1,4 +1,4 @@
-from pygame.math import Vector2
+from .vector2 import Vector2
 from . import globals
 
 from .gui import FILLX, FILLY

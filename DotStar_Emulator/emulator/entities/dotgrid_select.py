@@ -2,11 +2,10 @@ from __future__ import print_function
 
 import blinker
 import pygame
-from pygame.math import Vector2
 
 from DotStar_Emulator.emulator.entity import Entity
 from DotStar_Emulator.emulator import config
-
+from DotStar_Emulator.emulator.vector2 import Vector2
 
 class DotGridSelect(Entity):
     def __init__(self, dotgrid):

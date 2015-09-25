@@ -1,8 +1,9 @@
 import os
 import math
 
-from pygame.math import Vector2
 import pygame
+
+from .vector2 import Vector2
 
 MEDIA_PATH = os.path.join(os.path.dirname(__file__), 'media')
 

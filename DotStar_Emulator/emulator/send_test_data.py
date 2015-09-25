@@ -6,7 +6,7 @@ import time
 from PIL import Image
 
 import pygame
-from pygame.math import Vector2
+from .vector2 import Vector2
 
 from DotStar_Emulator.emulator import config
 from DotStar_Emulator.emulator.utils import blend_color
