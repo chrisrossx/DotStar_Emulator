@@ -48,7 +48,7 @@ class DataThread(threading.Thread):
         while self.running:
             try:
                 data = self.queue.get(timeout=0.01)
-            except Queue.Empty:
+            except queue.Empty:
                 data = None
 
             if data:
