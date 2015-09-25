@@ -15,7 +15,7 @@ Website: https://github.com/chrisrossx/DotStar_Emulator"""
 
 setup(
     name="DotStar_Emulator",
-    version='0.0.dev3',
+    version='0.0.dev4',
     url='https://github.com/chrisrossx/DotStar_Emulator',
     description='DotStar_Emulator is a Adafruit_DotStar LED strip emulator to speed up development of controller software.',
     long_description=long_description,
@@ -23,7 +23,7 @@ setup(
     author_email='chris.rossx@gmail.com',
     packages=["DotStar_Emulator", ],
     install_requires=[
-        "pygame>=1.9.2a0",
+        "pygame",
         "blinker>=1.4",
         "pillow>=2.9.0",
     ],
