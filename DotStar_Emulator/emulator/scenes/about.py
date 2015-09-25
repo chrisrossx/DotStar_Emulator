@@ -57,6 +57,5 @@ class AboutScene(Scene):
 
         return panel
 
-    @staticmethod
-    def on_return(sender):
+    def on_return(self, sender):
         blinker.signal("app.setscene").send(None, scene_name="running")

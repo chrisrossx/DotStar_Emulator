@@ -117,8 +117,7 @@ class EmulatorApp(object):
         """
         self.running = False
 
-    @staticmethod
-    def on_F4(sender, event):
+    def on_F4(self, sender, event):
         """
         callback for keypress event.  Shutdown the app.
 
