@@ -89,10 +89,10 @@ class RunningScene(Scene):
 
         exit_button = ButtonWidget("[X] Exit", key=pygame.K_x)
         bottom.set(exit_button, 2, 1)
-        blinker.signal("gui.button.pressed").connect(self.on_exit, sender=exit_button)
+        blinker.signal("gui.button.pressed").connect(self.on_exit, sender=exit_button, weak=True)
 
         about_button = ButtonWidget("[F1] About", key=pygame.K_F1)
-        blinker.signal("gui.button.pressed").connect(self.on_about, sender=about_button)
+        blinker.signal("gui.button.pressed").connect(self.on_about, sender=about_button, weak=True)
         bottom.set(about_button, 1, 1)
 
         return panel
@@ -190,24 +190,20 @@ class RunningScene(Scene):
 
         sender.text = self.fps_text()
 
-    @staticmethod
-    def on_exit(sender):
+    def on_exit(self, sender):
         """
         Callback for the Exit button pressed event
 
         :param sender: blinker sender
         :return: None
         """
-
         blinker.signal("app.exit").send(None)
 
-    @staticmethod
-    def on_about(sender):
+    def on_about(self, sender):
         """
         Callback for the About button pressed event
 
         :param sender: blinker sender
         :return: None
         """
-
         blinker.signal("app.setscene").send(None, scene_name="about")
