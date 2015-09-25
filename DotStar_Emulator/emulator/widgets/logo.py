@@ -22,7 +22,9 @@ class LogoWidget(widget.Widget):
         font = globals.current_app.get_font(22)
 
         c = config.get("BRAND_TITLE")
-        text, text_pos = font.render(config.get("WINDOW_CAPTION"), c)
+        text = font.render(config.get("WINDOW_CAPTION"), True, c)
+        text_pos = text.get_rect()
+
         text_pos.center = self.surface.get_rect().center
         self.surface.blit(text, text_pos)
 

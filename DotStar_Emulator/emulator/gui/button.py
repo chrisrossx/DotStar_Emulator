@@ -115,7 +115,8 @@ class ButtonWidget(Widget):
         font = globals.current_app.get_font(10)
 
         c = (255, 255, 255)
-        text, text_pos = font.render(self._text, c)
+        text = font.render(self._text, True, c)
+        text_pos = text.get_rect()
         text_pos.centery = self.surface.get_rect().centery - 1
         text_pos.left = 4
         self.surface.blit(text, text_pos)

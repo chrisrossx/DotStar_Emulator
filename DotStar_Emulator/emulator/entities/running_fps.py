@@ -33,7 +33,8 @@ class RunningFPS(Entity):
 
         self.elapsed += elapsed
         if self.elapsed > self.update_rate:
-            self.text, self.text_pos = self.font.render("{:.0f}".format(globals.current_app.clock.get_fps()), (255, 255, 255))
+            self.text = self.font.render("{:.0f}".format(globals.current_app.clock.get_fps()), True, (255, 255, 255))
+            self.text_pos = self.text.get_rect()
             self.text_pos.centery = self.rect.centery
             self.text_pos.left = self.rect.left
             self.elapsed = 0

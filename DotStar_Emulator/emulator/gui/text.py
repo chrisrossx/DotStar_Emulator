@@ -61,7 +61,8 @@ class TextLabelWidget(Widget):
 
         font = globals.current_app.get_font(self.size)
 
-        text, text_pos = font.render(self._text, self.color)
+        text = font.render(self._text, True, self.color)
+        text_pos = text.get_rect()
         if self.flags & CENTERX:
             text_pos.centerx = self.surface.get_rect().centerx
         else:
