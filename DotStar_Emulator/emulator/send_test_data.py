@@ -77,7 +77,16 @@ class App(object):
     def send(self):
 
         if not self.connection:
-            self.connection = Client((config.get("HOST"), config.get("PORT")))
+            if os.environ.has_key('DOTSTAR_HOST'):
+                host = os.environ.get('DOTSTAR_HOST')
+            else:
+                host = config.get("HOST")
+            if os.environ.has_key('DOTSTAR_PORT'):
+                port = os.environ.get('DOTSTAR_PORT')
+            else:
+                port = config.get("PORT")
+
+            self.connection = Client((host, port))
 
         # Start
         out_buffer = bytearray()

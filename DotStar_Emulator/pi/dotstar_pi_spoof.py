@@ -1,4 +1,5 @@
 import threading
+import os
 from multiprocessing.connection import Client
 try:
     import Queue as queue
@@ -23,8 +24,15 @@ class DataThread(threading.Thread):
         """
 
         super(DataThread, self).__init__()
-        self.host = HOST
-        self.port = PORT
+        if os.environ.has_key('DOTSTAR_HOST'):
+            self.host = os.environ.get('DOTSTAR_HOST')
+        else:
+            self.host = HOST
+        if os.environ.has_key('DOTSTAR_PORT'):
+            self.port = os.environ.get('DOTSTAR_PORT')
+        else:
+            self.port = PORT
+
 
         self.running = True
 
