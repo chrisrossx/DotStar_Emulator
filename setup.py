@@ -24,6 +24,7 @@ setup(
     packages=["DotStar_Emulator", ],
     install_requires=[
         "pygame",
+        "six",
         "blinker>=1.4",
         "pillow>=2.9.0",
     ],
