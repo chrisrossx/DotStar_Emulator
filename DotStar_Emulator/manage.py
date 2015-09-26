@@ -77,14 +77,15 @@ def init(arguments):
     source_folder = os.path.realpath(os.path.join(os.path.dirname(__file__), 'emulator', 'init'))
     dest_folder = os.getcwd()
     for filename in os.listdir(source_folder):
-        source_file = os.path.join(source_folder, filename)
-        dest_file = os.path.join(dest_folder, filename)
-        if arguments.force is False and os.path.isfile(dest_file):
-            print("Error, file already exists in current folder filename: '{}' use --force to overwrite files.".format(
-                filename))
-        else:
-            shutil.copy(source_file, dest_file)
-            print("Copying filename: '{}'".format(filename))
+        if not '.pyc' in os.path.splitext(filename):
+            source_file = os.path.join(source_folder, filename)
+            dest_file = os.path.join(dest_folder, filename)
+            if arguments.force is False and os.path.isfile(dest_file):
+                print("Error, file already exists in current folder filename: '{}' use --force to overwrite files.".format(
+                    filename))
+            else:
+                shutil.copy(source_file, dest_file)
+                print("Copying filename: '{}'".format(filename))
 
 
 def manage():
