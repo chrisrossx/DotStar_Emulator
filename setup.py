@@ -15,7 +15,7 @@ Website: https://github.com/chrisrossx/DotStar_Emulator"""
 
 setup(
     name="DotStar_Emulator",
-    version='0.1',
+    version='0.2',
     url='https://github.com/chrisrossx/DotStar_Emulator',
     description='DotStar_Emulator is a Adafruit_DotStar LED strip emulator to speed up development of controller software.',
     long_description=long_description,

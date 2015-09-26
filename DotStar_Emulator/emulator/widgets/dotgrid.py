@@ -273,7 +273,8 @@ class DotGridWidget(Widget):
                     color = bg_color
                 self.led_surface.fill(color)
                 if index is not None and self.draw_indexes > 0:
-                    text, text_pos = font.render(str(index), self.draw_indexes_colors[self.draw_indexes - 1])
+                    text = font.render(str(index), True, self.draw_indexes_colors[self.draw_indexes - 1])
+                    text_pos = text.get_rect()
                     text_pos.center = self.led_surface.get_rect().center
                     self.led_surface.blit(text, text_pos)
                 self.surface.blit(self.led_surface, self.led_rects[x][y])
