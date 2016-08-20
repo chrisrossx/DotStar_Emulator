@@ -78,7 +78,7 @@ class TCPReader(threading.Thread):
                         log.info("Connection opened by %s", self.listener.last_accepted)
 
                         while self.running:
-                            if connection.poll():
+                            if connection.poll(1.0):
                                 msg = connection.recv()
                                 globals.strip_data.spi_recv(msg)
                     except (IOError, EOFError):
